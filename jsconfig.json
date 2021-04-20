@@ -1,9 +1,11 @@
+// Restart a server in order for any changes to be effective
 {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/config/*": ["config/*"]
     }
   }
 }
