@@ -1,5 +1,5 @@
 import moment from 'moment'
-import {FaImage}  from 'react-icons/fa'
+import { FaImage } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useState } from 'react'
@@ -72,69 +72,69 @@ export default function EditEventPage({ evt }) {
   }
 
   return (
-    <Layout title='Add New Event'>
-      <Link href='/events'>Go Back</Link>
+    <Layout title="Add New Event">
+      <Link href="/events">Go Back</Link>
       <h1>Edit Event</h1>
       <ToastContainer />
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.grid}>
           <div>
-            <label htmlFor='name'>Event Name</label>
+            <label htmlFor="name">Event Name</label>
             <input
-              type='text'
-              id='name'
-              name='name'
+              type="text"
+              id="name"
+              name="name"
               value={values.name}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor='performers'>Performers</label>
+            <label htmlFor="performers">Performers</label>
             <input
-              type='text'
-              name='performers'
-              id='performers'
+              type="text"
+              name="performers"
+              id="performers"
               value={values.performers}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor='venue'>Venue</label>
+            <label htmlFor="venue">Venue</label>
             <input
-              type='text'
-              name='venue'
-              id='venue'
+              type="text"
+              name="venue"
+              id="venue"
               value={values.venue}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor='address'>Address</label>
+            <label htmlFor="address">Address</label>
             <input
-              type='text'
-              name='address'
-              id='address'
+              type="text"
+              name="address"
+              id="address"
               value={values.address}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor='date'>Date</label>
+            <label htmlFor="date">Date</label>
             <input
-              type='date'
-              name='date'
-              id='date'
+              type="date"
+              name="date"
+              id="date"
               value={moment(values.date).format('yyyy-MM-DD')}
               onChange={handleInputChange}
             />
           </div>
           <div>
-            <label htmlFor='time'>Time</label>
+            <label htmlFor="time">Time</label>
             <input
-              type='text'
-              name='time'
-              id='time'
+              type="text"
+              name="time"
+              id="time"
               value={values.time}
               onChange={handleInputChange}
             />
@@ -142,17 +142,17 @@ export default function EditEventPage({ evt }) {
         </div>
 
         <div>
-          <label htmlFor='description'>Event Description</label>
+          <label htmlFor="description">Event Description</label>
           <textarea
-            type='text'
-            name='description'
-            id='description'
+            type="text"
+            name="description"
+            id="description"
             value={values.description}
             onChange={handleInputChange}
           ></textarea>
         </div>
 
-        <input type='submit' value='Update Event' className='btn' />
+        <input type="submit" value="Update Event" className="btn" />
       </form>
 
       <h2>Image Preview</h2>
@@ -165,7 +165,7 @@ export default function EditEventPage({ evt }) {
       )}
 
       <div>
-        <button className='btn-secondary' onClick={() => setShowModal(true)}>
+        <button className="btn-secondary" onClick={() => setShowModal(true)}>
           <FaImage /> Set Image
         </button>
       </div>
@@ -177,9 +177,11 @@ export default function EditEventPage({ evt }) {
   )
 }
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({ params: { id }, req }) {
   const res = await fetch(`${API_URL}/events/${id}`)
   const evt = await res.json()
+
+  console.log(req.headers)
 
   return {
     props: {
