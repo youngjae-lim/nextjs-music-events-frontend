@@ -1,13 +1,35 @@
+import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 import DashboardEvent from '@/components/DashboardEvent'
 import { parseCookies } from '@/helpers/index'
 import { API_URL } from '@/config/index'
 import styles from '@/styles/Dashboard.module.css'
 
+export default function DashboardPage({ events, token }) {
+  const router = useRouter()
+  
+  const deleteEvent = async (id) => {
+    if (confirm('Are you sure?')) {
+      const res = await fetch(`${API_URL}/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
 
-export default function DashboardPage({ events }) {
-  const deleteEvent = (id) => {
-    console.log(id)
+      const data = await res.json()
+
+      if (!res.ok) {
+        if (res.status === 403 || res.status === 401) {
+          toast.error('Unauthorized!')
+          return
+        }
+
+        toast.error(data.message)
+      } else {
+        router.reload()
+      }
+    }
   }
 
   return (
@@ -36,6 +58,6 @@ export async function getServerSideProps({ req }) {
   const events = await res.json()
 
   return {
-    props: { events },
+    props: { events, token },
   }
 }
