@@ -40,8 +40,9 @@ export default function EditEventPage({ evt, token }) {
       (element) => element === ''
     )
 
-    if (hasEmptyFields) {
+    if (hasEmptyFields && !!token) {
       toast.error('Please fill in all fields!')
+      return
     }
 
     const res = await fetch(`${API_URL}/events/${evt.id}`, {

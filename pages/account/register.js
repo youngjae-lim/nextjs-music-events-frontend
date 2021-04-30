@@ -42,6 +42,7 @@ export default function RegisterPage() {
               type='text'
               id='username'
               value={username}
+              required
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
@@ -51,6 +52,7 @@ export default function RegisterPage() {
               type='email'
               id='email'
               value={email}
+              required
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
